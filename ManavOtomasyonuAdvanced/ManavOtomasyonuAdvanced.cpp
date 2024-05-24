@@ -1,6 +1,6 @@
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
 
@@ -39,23 +39,23 @@ int main() {
     dosyadanYukle();
     do {
         system("cls");
-        cout << "|************Ana Men�***********|" << endl;
+        cout << "|************Ana Menü***********|" << endl;
         dashline();
-        cout << "|   Yapaca��n�z ��lemi Se�iniz  |" << endl;
+        cout << "|   Yapacaðýnýz Ýþlemi Seçiniz  |" << endl;
         dashline();
         cout << "|    1 - Meyve-Sebze Ekleme     |" << endl;
         dashline();
         cout << "|    2 - Stok Listeleme         |" << endl;
         dashline();
-        cout << "|    3 - Meyve-Sebze Sat��      |" << endl;
+        cout << "|    3 - Meyve-Sebze Satýþ      |" << endl;
         dashline();
         cout << "|    4 - Stok Silme             |" << endl;
         dashline();
-        cout << "|    5 - Stok D�zenleme         |" << endl;
+        cout << "|    5 - Stok Düzenleme         |" << endl;
         dashline();
         cout << "|    6 - Meyve-Sebze Arama      |" << endl;
         dashline();
-        cout << "|    7 - ��k��                  |" << endl;
+        cout << "|    7 - Çýkýþ                  |" << endl;
         cout << "|_______________________________|" << endl;
         char islemSecme;
 		islemSecme = getche();
@@ -98,37 +98,41 @@ int main() {
             case '7':{
             	system("cls");
             	menu = 'h';
-                cout << "Programdan ��kt�n�z!" << endl;
+                cout << "Programdan Çýktýnýz!" << endl;
 				break;
 			}
         }
         if(islemSecme!='7'){
-        cout << "Ana men�ye d�nmek istiyorsan�z (e), ��kmak istiyorsan�z (h) bas�n�z." << endl;
+        cout << "Ana menüye dönmek istiyorsanýz (e), Çýkmak istiyorsanýz (h) basýnýz." << endl;
         menu = getche();
 		}
     } while (menu == 'e' || menu == 'E');
     
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
     dosyadanYukle();
     return 0;
 }
 
+/*6. Arama Fonksiyonu (“arama”):
+ - Kullanıcıdan aranacak meyve veya sebzenin adı istenir.
+ - Girilen adı “stok.dat” dosyasında arar ve eğer bulunursa ilgili meyve veya sebzenin bilgilerini ekrana yazdırır.*/
+
 void arama() {
     char aranan[80];
-    cout << "Aranacak Meyve-Sebze Ad�n� Giriniz: ";
+    cout << "Aranacak Meyve-Sebze Adýný Giriniz: ";
     cin >> aranan;
 
     meyveSebze* yedek = head;
     bool bulundu = false;
     while (yedek != NULL) {
         if (strcasecmp(yedek->meyvesebzeAdi, aranan) == 0) {
-            cout << "Meyve-Sebzenin Ad�: " << yedek->meyvesebzeAdi << endl;
-            cout << "Meyve-Sebzenin Fiyat�: " << yedek->fiyat << endl;
-            cout << "Meyve-Sebzenin �uanki Sto�u: " << yedek->gelenKilo << endl;
+            cout << "Meyve-Sebzenin Adý: " << yedek->meyvesebzeAdi << endl;
+            cout << "Meyve-Sebzenin Fiyatý: " << yedek->fiyat << endl;
+            cout << "Meyve-Sebzenin Þuanki Stoðu: " << yedek->gelenKilo << endl;
             cout << "--------------------------------------" << endl;
             bulundu = true;
             break;
@@ -137,15 +141,21 @@ void arama() {
     }
 
     if (!bulundu) {
-        cout << "Aranan meyve veya sebze bulunamad�." << endl;
+        cout << "Aranan meyve veya sebze bulunamadý." << endl;
     }
-}
+} 
 
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
+
+/*1. Stok Ekleme (“stokEkle”):
+ - Kullanıcıdan meyve veya sebzenin adı, gelen kilosu ve kilosu başına fiyatı istenir.
+ - Kullanıcı her bir meyve veya sebze için bu bilgileri girebilir.
+ - Girilen bilgiler “stok.dat” adlı bir dosyaya binary formatında kaydedilir.
+ - Eklenen her bir meyve veya sebze, bir bağlı listede de saklanır.*/
 
 void stokEkle() {
     char secim;
@@ -153,7 +163,7 @@ void stokEkle() {
 
     do {
         meyveSebze* yeni = new meyveSebze();
-        cout << "Sto�a Girilecek Meyve-Sebzenin Ad�n� Giriniz" << endl;
+        cout << "Stoða Girilecek Meyve-Sebzenin Adýný Giriniz" << endl;
         cin >> yeni->meyvesebzeAdi;
         meyveSebze* yedek = head;
         bool bulundu = false;
@@ -165,38 +175,42 @@ void stokEkle() {
         yedek = yedek->link;
     }
     if(bulundu == false){
-        cout << "Sto�a Girilecek Meyve-Sebzenin Kilosunu Giriniz" << endl;
+        cout << "Stoða Girilecek Meyve-Sebzenin Kilosunu Giriniz" << endl;
         cin >> yeni->gelenKilo;
-        cout << "Sto�a Girilecek Meyve-Sebzenin 1 Kilosunun Fiyat�n� Giriniz" << endl;
+        cout << "Stoða Girilecek Meyve-Sebzenin 1 Kilosunun Fiyatýný Giriniz" << endl;
         cin >> yeni->fiyat;
         yeni->kalanKilo = yeni->gelenKilo;
         yeni->link = head;
         head = yeni;
         cesit++;
-        cout << "Sto�a Ba�ka Bir Kay�t Yapacak m�s�n�z? (e/h)" << endl;
+        cout << "Stoða Baþka Bir Kayýt Yapacak mýsýnýz? (e/h)" << endl;
         secim = getche();
         cout << endl;
         dosyayaKaydet();
     }else{cout << "Stokta Zaten Var!" << endl; break;}
 	} while (secim == 'e' || secim == 'E');
 	if(cesit!=0){
-    cout << cesit << " �e�it Meyve-Sebze Sto�a Girildi.." << endl;}
+    cout << cesit << " Çeþit Meyve-Sebze Stoða Girildi.." << endl;}
 }
+
+/*2. Stok Listeleme (“stokListeleme”):
+ - “stok.dat” dosyasından meyve ve sebzelerin bilgileri okunarak ekrana yazdırılır.
+ - Her meyve veya sebzenin adı, fiyatı ve mevcut stok durumu (kalan kilo) listelenir.*/
 
 void stokListeleme() {
     meyveSebze* yedek = head;
     int index = 1;
 
     if (yedek == NULL) {
-        cout << "Stok Bulunamad�" << endl;
+        cout << "Stok Bulunamadý" << endl;
         return;
     }
 
     while (yedek != NULL) {
         cout << index++ << ". Meyve-Sebzenin Bilgileri" << endl;
-        cout << "Meyve-Sebzenin Ad�: " << yedek->meyvesebzeAdi << endl;
-        cout << "Meyve-Sebzenin Fiyat�: " << yedek->fiyat << endl;
-        cout << "Meyve-Sebzenin �uanki Sto�u: " << yedek->gelenKilo << endl;
+        cout << "Meyve-Sebzenin Adý: " << yedek->meyvesebzeAdi << endl;
+        cout << "Meyve-Sebzenin Fiyatý: " << yedek->fiyat << endl;
+        cout << "Meyve-Sebzenin Þuanki Stoðu: " << yedek->gelenKilo << endl;
         cout << "--------------------------------------" << endl;
 		yedek = yedek->link;
     }
@@ -204,13 +218,19 @@ void stokListeleme() {
 
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
 
+/*3. Meyve-Sebze Satış (“meyvesebzeSatis”)”:
+ - Kullanıcıdan satılacak meyve veya sebzenin adı ve satılacak kilo miktarı istenir.
+ - Girilen adı “stok.dat” dosyasında arar ve ilgili meyve veya sebzenin bilgilerini gösterir.
+ - Satış işlemi için uygun stok miktarı kontrol edilir.
+ - Satış yapıldıktan sonra kalan stok miktarı güncellenir ve “stok.dat” dosyası üzerinde işlemler yapılır.*/
+
 void meyvesebzeSatis() {
     char meyvesebzeadi[80];
-    cout << "Sat�lacak Meyve-Sebzenin Ad�n� Giriniz" << endl;
+    cout << "Satýlacak Meyve-Sebzenin Adýný Giriniz" << endl;
     cin >> meyvesebzeadi;
 
     meyveSebze* yedek = head;
@@ -222,38 +242,38 @@ void meyvesebzeSatis() {
     }
 
     if (yedek == NULL) {
-        cout << "Stok Bulunamad�" << endl;
+        cout << "Stok Bulunamadý" << endl;
         return;
     }
 
-    cout << "Sat�lacak Meyve-Sebzenin Bilgileri" << endl;
-    cout << "Meyve-Sebzenin Ad�: " << yedek->meyvesebzeAdi << endl;
-    cout << "Meyve-Sebzenin Fiyat�: " << yedek->fiyat << endl;
-    cout << "Meyve-Sebzenin �uanki Sto�u: " << yedek->gelenKilo << endl;
+    cout << "Satýlacak Meyve-Sebzenin Bilgileri" << endl;
+    cout << "Meyve-Sebzenin Adý: " << yedek->meyvesebzeAdi << endl;
+    cout << "Meyve-Sebzenin Fiyatý: " << yedek->fiyat << endl;
+    cout << "Meyve-Sebzenin Þuanki Stoðu: " << yedek->gelenKilo << endl;
     cout << endl;
 
     int satis;
-    cout << "Ka� Kilo Sat�laca��n� Giriniz: ";
+    cout << "Kaç Kilo Satýlacaðýný Giriniz: ";
     cin >> satis;
     cout << endl;
 
     int ucret = 0;
 
     if (satis > yedek->gelenKilo) {
-        cout << "�stenilen kilodan az stok var. T�m stok sat�ld�." << endl;
+        cout << "Ýstenilen kilodan az stok var. Tüm stok satýldý." << endl;
         ucret = yedek->gelenKilo * yedek->fiyat;
-        cout << "Sat�� Tutar�: " << ucret << endl;
+        cout << "Satýþ Tutarý: " << ucret << endl;
         yedek->gelenKilo = 0;
         dosyayaKaydet();
     } else {
         ucret = satis * yedek->fiyat;
-        cout << "Sat�� Tutar�: " << ucret << endl;
+        cout << "Satýþ Tutarý: " << ucret << endl;
         yedek->gelenKilo -= satis;
         dosyayaKaydet();
     }
 
     if (yedek->gelenKilo == 0) {
-        cout << "Stok s�f�rland��� i�in �r�n silindi." << endl;
+        cout << "Stok sýfýrlandýðý için ürün silindi." << endl;
         if (once == NULL) {
             head = yedek->link;
         } else {
@@ -265,13 +285,20 @@ void meyvesebzeSatis() {
 
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
 
+/*4. Stok Silme (“stokSilme”):
+ - Kullanıcıdan silinecek meyve veya sebzenin adı istenir.
+ - Girilen adı “stok.dat” dosyasında arar ve ilgili meyve veya sebzenin bilgilerini gösterir.
+ - Kullanıcı onayıyla silme işlemi gerçekleştirilir.
+ - Silinen meyve veya sebzenin bilgileri “Yedek.dat” dosyasına aktarılır ve `stok.dat` dosyası üzerinde güncelleme 
+yapılır. */
+
 void stokSilme() {
     char meyvesebzeadi[80];
-    cout << "Silinecek Meyve-Sebzenin Ad�n� Giriniz" << endl;
+    cout << "Silinecek Meyve-Sebzenin Adýný Giriniz" << endl;
     cin >> meyvesebzeadi;
 
     meyveSebze* yedek = head;
@@ -284,13 +311,13 @@ void stokSilme() {
     }
 
     if (yedek == NULL) {
-        cout << "Stok Bulunamad�" << endl;
+        cout << "Stok Bulunamadý" << endl;
         return;
     }
     cout << "Silinecek Meyve-Sebzenin Bilgileri" << endl;
-    cout << "Meyve-Sebzenin Ad�: " << yedek->meyvesebzeAdi << endl;
-    cout << "Meyve-Sebzenin Fiyat�: " << yedek->fiyat << endl;
-    cout << "Meyve-Sebzenin �uanki Sto�u: " << yedek->gelenKilo << endl;
+    cout << "Meyve-Sebzenin Adý: " << yedek->meyvesebzeAdi << endl;
+    cout << "Meyve-Sebzenin Fiyatý: " << yedek->fiyat << endl;
+    cout << "Meyve-Sebzenin Þuanki Stoðu: " << yedek->gelenKilo << endl;
     cout << endl;
 
     char secim;
@@ -308,19 +335,25 @@ void stokSilme() {
         cout << "Stok Silindi" << endl;
         dosyayaKaydet();
     } else {
-        cout << "Stok Silme �ptal Edildi" << endl;
+        cout << "Stok Silme Ýptal Edildi" << endl;
     }
 }
 
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
 
+/*5. Stok Düzenleme (“stokDuzenle”):
+ - Kullanıcıdan düzenlenecek meyve veya sebzenin adı istenir.
+ - Girilen adı “stok.dat” dosyasında arar ve ilgili meyve veya sebzenin bilgilerini gösterir.
+ - Kullanıcı onayıyla düzenleme işlemi gerçekleştirilir.
+ - Yeni bilgiler girilerek meyve veya sebzenin adı, gelen kilosu ve kilosu başına fiyatı güncellenir.*/
+
 void stokDuzenle() {
     char meyvesebzeadi[80];
-    cout << "D�zeltilecek Meyve-Sebzenin Ad�n� Giriniz" << endl;
+    cout << "Düzeltilecek Meyve-Sebzenin Adýný Giriniz" << endl;
     cin >> meyvesebzeadi;
 
     meyveSebze* yedek = head;
@@ -331,39 +364,41 @@ void stokDuzenle() {
     }
 
     if (yedek == NULL) {
-        cout << "Stok Bulunamad�" << endl;
+        cout << "Stok Bulunamadý" << endl;
         return;
     }
 
-    cout << "D�zeltilecek Meyve-Sebzenin Bilgileri" << endl;
-    cout << "Meyve-Sebzenin Ad�: " << yedek->meyvesebzeAdi << endl;
-    cout << "Meyve-Sebzenin Fiyat�: " << yedek->fiyat << endl;
-    cout << "Meyve-Sebzenin �uanki Sto�u: " << yedek->gelenKilo << endl;
+    cout << "Düzeltilecek Meyve-Sebzenin Bilgileri" << endl;
+    cout << "Meyve-Sebzenin Adý: " << yedek->meyvesebzeAdi << endl;
+    cout << "Meyve-Sebzenin Fiyatý: " << yedek->fiyat << endl;
+    cout << "Meyve-Sebzenin Þuanki Stoðu: " << yedek->gelenKilo << endl;
     cout << endl;
 
     char secim;
-    cout << "D�zeltilecek Meyve-Sebze Bu mu? (e/h)" << endl;
+    cout << "Düzeltilecek Meyve-Sebze Bu mu? (e/h)" << endl;
     secim = getche();
     cout << endl;
 
     if (secim == 'e' || secim == 'E') {
-        cout << "Yeni Meyve-Sebzenin Ad�n� Giriniz" << endl;
+        cout << "Yeni Meyve-Sebzenin Adýný Giriniz" << endl;
         cin >> yedek->meyvesebzeAdi;
         cout << "Yeni Meyve-Sebzenin Kilosunu Giriniz" << endl;
         cin >> yedek->gelenKilo;
-        cout << "Yeni Meyve-Sebzenin 1 Kilosunun Fiyat�n� Giriniz" << endl;
+        cout << "Yeni Meyve-Sebzenin 1 Kilosunun Fiyatýný Giriniz" << endl;
         cin >> yedek->fiyat;
         yedek->kalanKilo = yedek->gelenKilo;
-        cout << "Stok D�zeltildi" << endl;
+        cout << "Stok Düzeltildi" << endl;
         dosyayaKaydet();
     } else {
-        cout << "Stok D�zeltme �ptal Edildi" << endl;
+        cout << "Stok Düzeltme Ýptal Edildi" << endl;
     }
 }
 
 void dashline() {
     cout << "|-------------------------------|" << endl;
 }
+
+// stok.dot dosyasındaki verileri alıp kullanmamıza yarayan fonksiyon
 
 void dosyadanYukle() {
     ifstream file("stok.dat", ios::binary);
@@ -382,6 +417,8 @@ void dosyadanYukle() {
     file.close();
 }
 
+// stok.dot dosyasına verileri yazmamızı sağlayan fonksiyon
+
 void dosyayaKaydet() {
     ofstream file("stok.dat", ios::binary | ios::trunc);
     meyveSebze* yedek = head;
@@ -394,6 +431,6 @@ void dosyayaKaydet() {
 
 /* Kemal Sebzeci
    2312729009
-   Veri Yap�lar�
+   Veri Yapýlarý
    Manav Otomasyonu
 */
